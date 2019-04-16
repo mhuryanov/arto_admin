@@ -2,9 +2,9 @@
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>Moneo</b> Admin System | Version 1.5
+          <b>Moneo</b> Admin System | Version 1.0
         </div>
-        <strong>Copyright &copy; 2014-2015 <a href="<?php echo base_url(); ?>">Moneo</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2019-2020 <a href="<?php echo base_url(); ?>">Moneo</a>.</strong> All rights reserved.
     </footer>
     
     <script src="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

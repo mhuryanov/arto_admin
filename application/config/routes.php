@@ -89,5 +89,20 @@ $route['resetPasswordConfirmUser/(:any)'] = "login/resetPasswordConfirmUser/$1";
 $route['resetPasswordConfirmUser/(:any)/(:any)'] = "login/resetPasswordConfirmUser/$1/$2";
 $route['createPasswordUser'] = "login/createPasswordUser";
 
+$route['stories'] = "story/getAll";
+$route['addNewStory'] = "story/addNew";
+$route['addNewStoryP'] = "story/addNewStoryP";
+$route['editStory/(:num)'] = "story/editStory/$1";
+$route['editStoryP'] = "story/editStoryP";
+$route['deleteStory/(:num)'] = "story/delete/$1";
+$route['stories/(:num)/qlist'] = "question/getByStory/$1";
+$route['addNewQuestion/(:num)'] = "question/addNew/$1";
+$route['addNewQuestion'] = "question/addNewP";
+$route['editQuestion'] = "question/editQuestionP";
+$route['editQuestion/(:num)/(:num)'] = "question/editQuestion/$1/$2";
+$route['deleteQuestion/(:num)/(:num)'] = "question/delete/$1/$2";
+
+$route['postAnswers'] = "answer";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
