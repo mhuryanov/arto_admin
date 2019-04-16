@@ -103,6 +103,7 @@ $route['editQuestion/(:num)/(:num)'] = "question/editQuestion/$1/$2";
 $route['deleteQuestion/(:num)/(:num)'] = "question/delete/$1/$2";
 
 $route['postAnswers'] = "answer";
+$route['postAnswer'] = "answer/post";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
