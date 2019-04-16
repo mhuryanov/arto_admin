@@ -42,9 +42,9 @@
         <!-- Logo -->
         <a href="<?php echo base_url(); ?>" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>CI</b>AS</span>
+          <span class="logo-mini"><b>MO</b>AS</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>CodeInsect</b>AS</span>
+          <span class="logo-lg"><b>Moneo</b>AS</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -101,7 +101,7 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li>
+            <!-- <li>
               <a href="<?php echo base_url(); ?>dashboard">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
               </a>
@@ -171,19 +171,19 @@
             }
             if($role == ROLE_ADMIN)
             {
-            ?>
+            ?> -->
             <li>
               <a href="<?php echo base_url(); ?>userListing">
                 <i class="fa fa-users"></i>
                 <span>Users</span>
               </a>
             </li>
-            <li>
+            <!-- <li>
               <a href="#" >
                 <i class="fa fa-files-o"></i>
                 <span>Reports</span>
               </a>
-            </li>
+            </li> -->
             <?php
             }
             ?>
