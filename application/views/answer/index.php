@@ -29,14 +29,31 @@ foreach ($stories as $story) {
 }
 ?>
 
-<div>
-    <button onClick="save()">Save</button>
+<div class="save-btn-div">
+    <button class="save-btn" onClick="save()">Save</button>
 </div>
 
 
 <style>
 .story-question{
-    margin-left: 20px;
+    
+}
+
+.save-btn-div{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.save-btn{
+    padding: 5px 30px;
+    border: none;
+    font-size: 30px;
+    background: #2b6ca3;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 4px 9px 1px #555;
 }
 </style>
 
@@ -71,5 +88,11 @@ foreach ($stories as $story) {
             }
         })
     }
+
+    window.resizeTo(
+        100,
+        2000
+    );
+    debugger;
 </script>
 
