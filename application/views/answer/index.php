@@ -16,6 +16,9 @@ foreach ($stories as $story) {
         <h3><?=$question['question']?></h3>
         <div>
             <div id="editor-<?=$question['id']?>"></div>
+            <div class="save-btn-div">
+                <button class="save-btn" onClick="save()">Save</button>
+            </div>
         </div>
         <script>
             var editor = CKEDITOR.appendTo("editor-<?=$question['id']?>");
@@ -36,7 +39,7 @@ foreach ($stories as $story) {
 
 <style>
 .story-question{
-    
+    margin-left: 10px;
 }
 
 .save-btn-div{

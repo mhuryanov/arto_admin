@@ -37,7 +37,9 @@
                             {
                         ?>
                         <tr>
-                            <td><?php echo $record['story_name'] ?></td>
+                            <td>
+                                <a href="<?=base_url()?>stories/<?=$record['id']?>/qlist"><?php echo $record['story_name'] ?></a>
+                            </td>
                             <td><?php echo date("d-m-Y", strtotime($record['created_at'])) ?></td>
                             <td class="text-center">
                                 <a class="btn btn-sm btn-primary" href="<?= base_url().'addNewQuestion/'.$record['id']; ?>" title="Add Question"><i class="fa fa-plus"></i> Add Question</a> | 

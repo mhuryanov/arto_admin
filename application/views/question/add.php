@@ -23,7 +23,7 @@
                     <form role="form" id="addUser" action="<?php echo base_url() ?>addNewQuestion" method="post" role="form">
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-6">                                
+                                <div class="col-md-12">                                
                                     <div class="form-group">
                                         <label for="question">Question</label>
                                         <input type="text" class="form-control required" value="" id="question" name="question" maxlength="1024" required>

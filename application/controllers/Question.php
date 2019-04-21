@@ -25,6 +25,7 @@ class Question extends BaseController
         else
         {   
             $story = $this->story_model->getStoryInfo($storyId);     
+            var_dump($story);
             
             $questions = $this->question_model->getByStory($storyId);
             
@@ -32,7 +33,18 @@ class Question extends BaseController
             
             $data['story'] = $story;
 
+            if(count($questions) > 0) {
+                for($i = 0; $i < count($questions); $i++) {
+                     $temp_sub = $this->getSubQuestion($storyId, $questions[$i]['id']);
+                    if($temp_sub != null && count($temp_sub) > 0) {
+                        $questions[$i]['subs'] = $temp_sub;
+                    } 
+                }
+            }
+
             $data['questions'] = $questions;
+            
+            // var_dump($questions);
             
             $this->loadViews("question/list", $this->global, $data, NULL);
         }
@@ -170,6 +182,38 @@ class Question extends BaseController
         {
            $this->question_model->delete($id);
            redirect('stories/'.$storyId."/qlist");
+        }
+    }
+
+    function addq_b() {
+        $data['question'] = $this->input->post("q");
+        $data['q_parent'] = $this->input->post("qid");
+        $data['story_id'] = $this->input->post("story_id");
+
+        $result = $this->question_model->addNew($data);
+                
+        if($result > 0)
+        {
+           echo json_encode(array("success"=> true));
+           return;
+        }
+         echo json_encode(array("success"=> false));
+        
+    }
+
+    function getSubQuestion($storyId, $qid) {
+        $subs = $this->question_model->getSubQuestions($storyId, $qid);
+        if($subs != null && count($subs) > 0) {
+            for ($i = 0; $i < count($subs); $i++) {
+                $temp_sub = $this->getSubQuestion($storyId, $subs[$i]['id']);
+                if($temp_sub != null && count($temp_sub) > 0) {
+                    $subs[$i]['subs'] = $temp_sub;
+                } 
+            }
+
+            return $subs;
+        } else {
+            return null;
         }
     }
 }

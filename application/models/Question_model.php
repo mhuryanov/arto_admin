@@ -24,6 +24,7 @@ class Question_model extends CI_Model
 
     function getByStory($storyId) {
         $this->db->where('story_id', $storyId);
+        $this->db->where('q_parent', "0");
         $this->db->from($this->table_name);
         $query = $this->db->get();
         
@@ -61,5 +62,20 @@ class Question_model extends CI_Model
     function delete($id) {
         $this->db->where("id", $id);
         $this->db->delete($this->table_name);
+    }
+
+    function getSubQuestions($storyId, $qid) {
+        $this->db->where('story_id', $storyId);
+        $this->db->where('q_parent', $qid);
+        $this->db->from($this->table_name);
+        $query = $this->db->get();
+        
+        $result =  $query->result_array();
+        
+        if(count($result) > 0 ) {
+            return $result;
+        }  else {
+            return null;
+        }
     }
 }

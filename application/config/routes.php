@@ -105,5 +105,9 @@ $route['deleteQuestion/(:num)/(:num)'] = "question/delete/$1/$2";
 $route['postAnswers'] = "answer";
 $route['postAnswer'] = "answer/post";
 
+
+//ajax
+$route['addq_b'] = "question/addq_b";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
