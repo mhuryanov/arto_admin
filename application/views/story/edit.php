@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/cbox.js"></script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -30,7 +31,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <input type="text" value="<?=$storyInfo['color']?>" name="color" id="color_c1">
                             <input type="hidden" value="<?= $storyInfo['id']?>" id="id" name="id">
                             
                         </div><!-- /.box-body -->

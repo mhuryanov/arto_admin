@@ -128,8 +128,9 @@ class Story extends BaseController
             else
             {
                 $name = ucwords(strtolower($this->security->xss_clean($this->input->post('story_name'))));
+                $color = $this->input->post('color');
                 
-                $storyInfo = array('story_name'=>$name);
+                $storyInfo = array('story_name'=>$name, 'color'=>$color);
                 
                 $result = $this->story_model->edit($id, $storyInfo);
                 
@@ -157,5 +158,16 @@ class Story extends BaseController
            $this->story_model->delete($id);
            redirect('stories');
         }
+    }
+
+    public function order() {
+        $order = $this->input->post('order');
+
+        $i = 0;
+        foreach ($order as $item) {
+            $this->story_model->edit($item, array("s_order"=>$i));
+            $i++;
+        }
+        echo json_encode($order);
     }
 }

@@ -5,6 +5,9 @@ class Story_model extends CI_Model
     public $table_name = 'stories';
     
     function getAll() {
+        
+        $this->db->order_by("s_order", "asc");
+
         $query = $this->db->get($this->table_name);
         
         $result = $query->result_array();        
