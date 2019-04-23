@@ -21,9 +21,19 @@ class Answer extends BaseController
 
         for($i = 0; $i < count($stories); $i++) {
             $questions = $this->question_model->getByStory($stories[$i]['id']);
-            $stories[$i]['quesitons'] = $questions;
+            if($questions != null && count($questions) > 0) {
+                for($j = 0; $j < count($questions); $j++) {
+                    $temp_sub = $this->getSubQuestion($stories[$i]['id'], $questions[$j]['id']);
+                    if($temp_sub != null && count($temp_sub) > 0) {
+                        $questions[$j]['subs'] = $temp_sub;
+                    } 
+                }
+            }
+            $stories[$i]['questions'] = $questions;
         }
+
         $data['stories'] = $stories;
+        // var_dump($stories);
         $this->load->view("answer/index", $data);
     }
 
@@ -35,5 +45,21 @@ class Answer extends BaseController
             $this->answer_model->addNew($answer);
         }
         echo json_encode(array("answer_id" => $answer_id));
+    }
+
+    function getSubQuestion($storyId, $qid) {
+        $subs = $this->question_model->getSubQuestions($storyId, $qid);
+        if($subs != null && count($subs) > 0) {
+            for ($i = 0; $i < count($subs); $i++) {
+                $temp_sub = $this->getSubQuestion($storyId, $subs[$i]['id']);
+                if($temp_sub != null && count($temp_sub) > 0) {
+                    $subs[$i]['subs'] = $temp_sub;
+                } 
+            }
+
+            return $subs;
+        } else {
+            return null;
+        }
     }
 }
