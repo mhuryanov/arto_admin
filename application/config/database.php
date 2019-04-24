@@ -75,10 +75,16 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'artoadmin-1.cluster-carilrxhxqua.us-east-2.rds.amazonaws.com',
+	// 'hostname' => 'artoadmin-1.cluster-carilrxhxqua.us-east-2.rds.amazonaws.com',
+	// 'username' => 'root',
+	// 'password' => 'soksunae123',
+	// 'database' => 'arto_admin',
+
+	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => 'soksunae123',
+	'password' => '',
 	'database' => 'arto_admin',
+
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

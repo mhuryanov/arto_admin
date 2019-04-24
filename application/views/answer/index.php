@@ -6,6 +6,7 @@
 
 <script>
     var editors = [];
+    var uid = "<?= uniqid();?>"
 </script>
 
 <?php
@@ -21,11 +22,15 @@
                 <h3><?=$question['question']?></h3>
                 <div id="editor-<?=$question['id']?>"></div>
                 <div class="save-btn-div">
-                    <button class="save-btn" data-qid="<?=$question['id']?>" data-storyid="<?=$story['id']?>">Save</button>
+                    <button class="save-btn save-btn-<?=$question['id']?>" data-qid="<?=$question['id']?>" data-storyid="<?=$story['id']?>">Save</button>
                 </div>
                 <script>
                     var editor = CKEDITOR.appendTo("editor-<?=$question['id']?>");
                     editors.push({editor: editor, question: <?=$question['id']?>, story: <?=$story['id']?>});
+                    editor.on('change', function() {
+                        // alert(<?=$question['id']?>);
+                        $(".save-btn-<?=$question['id']?>").text("Save");
+                    })
                 </script>
             </div>
             <?php
@@ -42,7 +47,7 @@
     }
 ?>
 
-<div class="row">
+<div class="row edit-story">
     <div class="col-md-7">
         <?php
         foreach ($stories as $story) {
@@ -70,8 +75,13 @@
                 $i++;
             }
         ?>
-        <div>
+        </div>
+       
     </div>
+</div>
+
+<div class="see-story">
+    <button class="see-story-btn">See Story</button>
 </div>
 <!-- <div class="save-btn-div">
     <button class="save-btn" onClick="save()">Save</button>
@@ -94,7 +104,7 @@
     padding: 20px;
 }
 
-.save-btn{
+.save-btn, .see-story-btn{
     padding: 5px 30px;
     border: none;
     font-size: 30px;
@@ -132,6 +142,12 @@
 .story-stage-item:hover{
     background: #eee;
 }
+
+.see-story{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
 </style>
 
 
@@ -167,15 +183,37 @@
     }
 
     $(".save-btn").click(function() {
+
+        $(this).text("Saving...");
+        var me = $(this);
+
         var qid = $(this).data("qid");
         var storyid = $(this).data("storyid");
+        
         for(var i = 0; i < editors.length; i++) {
             if(editors[i].question == qid) {
                 // alert(qid);
                 console.log(editors[i].editor.getData());
+                $.ajax({
+                    url: "<?=base_url()?>postInd",
+                    type: "post",
+                    data: {
+                        data: editors[i].editor.getData(),
+                        uid: uid,
+                        qid: qid,
+                        storyid: storyid
+                    },
+                    success: function(res) {
+                        me.text("Saved");
+                        // alert(res);
+                    }
+                })
             }
         }
     });
 
+    $(".see-story").click(function() {
+        $('.edit-story').hide();
+    })
 </script>
 

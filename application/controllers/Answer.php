@@ -47,6 +47,22 @@ class Answer extends BaseController
         echo json_encode(array("answer_id" => $answer_id));
     }
 
+    public function postInd() {
+        $data['answer'] = $this->input->post('data');
+        $data['story_id'] = $this->input->post("storyid");
+        $data['question_id'] = $this->input->post("qid");
+        $data['answer_id'] = $this->input->post("uid");
+
+        if($this->answer_model->is_exist($data)) {
+            $this->answer_model->update($data);
+        } else {
+            $this->answer_model->addNew($data);
+        }
+
+        $data['success'] = true;
+        echo json_encode($data);
+    }
+
     function getSubQuestion($storyId, $qid) {
         $subs = $this->question_model->getSubQuestions($storyId, $qid);
         if($subs != null && count($subs) > 0) {

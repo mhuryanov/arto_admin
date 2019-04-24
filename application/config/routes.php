@@ -104,11 +104,12 @@ $route['deleteQuestion/(:num)/(:num)'] = "question/delete/$1/$2";
 
 $route['postAnswers'] = "answer";
 $route['postAnswer'] = "answer/post";
-
+$route['postInd'] = "answer/postInd";
 
 //ajax
 $route['addq_b'] = "question/addq_b";
 $route['story/order'] = "story/order";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
