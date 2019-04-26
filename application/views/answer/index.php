@@ -87,6 +87,13 @@
     <button class="save-btn" onClick="save()">Save</button>
 </div> -->
 
+<div class="show-story-container">
+    
+</div>
+
+<div id="loading-div">
+    Loading ...
+</div>
 
 <style>
 .story-title {
@@ -113,6 +120,7 @@
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 2px 4px 9px 1px #555;
+    outline: none;
 }
 
 .q-item-container{
@@ -124,8 +132,14 @@
     display: flex;
     margin-top: 50px;
     padding: 10px;
-    border: solid 3px #000;
+    border: solid 3px #133a94;
     position: fixed;
+    top: 25px;
+    width: 40%;
+    right: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 4px 4px 18px -4px #133a94;
 }
 
 .story-stage-item{
@@ -148,13 +162,34 @@
     right: 20px;
     bottom: 20px;
 }
+
+.edit-story{
+    margin:0;
+}
+
+.show-story-container{
+    display:none;
+}
+
+#loading-div{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    background: #000;
+    color: white;
+    opacity: 0.8;
+}
 </style>
 
 
 <script>
     var data = CKEDITOR.instances;
-    console.log(data);
-    console.log(editors);
     var postData = [];
 
     function save() {
@@ -182,6 +217,14 @@
         })
     }
 
+    function showloading(isShow) {
+        if(isShow) {
+            $("#loading-div").css("display", "flex");
+        } else {
+            $("#loading-div").css("display", "none");
+        }
+    }
+
     $(".save-btn").click(function() {
 
         $(this).text("Saving...");
@@ -192,8 +235,6 @@
         
         for(var i = 0; i < editors.length; i++) {
             if(editors[i].question == qid) {
-                // alert(qid);
-                console.log(editors[i].editor.getData());
                 $.ajax({
                     url: "<?=base_url()?>postInd",
                     type: "post",
@@ -205,15 +246,46 @@
                     },
                     success: function(res) {
                         me.text("Saved");
-                        // alert(res);
                     }
                 })
             }
         }
     });
 
-    $(".see-story").click(function() {
-        $('.edit-story').hide();
+    var is_story = true;
+    $(".see-story-btn").click(function() {
+        if(is_story) {
+            showloading(true);
+            $.ajax({
+                url: "<?=base_url()?>showStory/" + uid,
+                type: "get",
+                success: function(res) {
+                    showloading(false);
+                    is_story = false;
+                    $('.edit-story').hide();
+                    $('.show-story-container').show();
+                    $(".see-story-btn").text("Back");
+
+                    $('.show-story-container').html(res);
+                }
+            }).fail(function(err) {
+                showloading(false);
+                is_story = false;
+                $('.edit-story').hide();
+                $('.show-story-container').show();
+                $(".see-story-btn").text("Back");
+
+                $('.show-story-container').html(err.responseText);
+            });
+            
+        }
+        else {
+            is_story = true;
+            $('.edit-story').show();
+            $('.show-story-container').hide();
+            $('.show-story-container').html("");
+            $(this).text("See Story");
+        }
     })
 </script>
 

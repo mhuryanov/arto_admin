@@ -105,6 +105,7 @@ $route['deleteQuestion/(:num)/(:num)'] = "question/delete/$1/$2";
 $route['postAnswers'] = "answer";
 $route['postAnswer'] = "answer/post";
 $route['postInd'] = "answer/postInd";
+$route['showStory/(:any)'] = "answer/showStory/$1";
 
 //ajax
 $route['addq_b'] = "question/addq_b";

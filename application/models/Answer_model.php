@@ -38,4 +38,28 @@ class Answer_model extends CI_Model
         return TRUE;
     }
 
+    function getAnswer($storyId, $qid, $answerid) {
+        $this->db->where('story_id', $storyId);
+        $this->db->where('question_id', $qid);
+        $this->db->where('answer_id', $answerid);
+
+        $query = $this->db->get($this->table_name);
+        $result = $query->result_array();
+
+        if(count($result) > 0) {
+            return $result[0]['answer'];
+        }
+        
+        return null;
+
+    }
+
+    function getAllAnswerById($answerid) {
+        $this->db->where("answer_id", $answerid);
+        $query = $this->db->get($this->table_name);
+        $result = $query->result_array();
+
+        return $result;
+    }
+
 }

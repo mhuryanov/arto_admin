@@ -78,4 +78,48 @@ class Answer extends BaseController
             return null;
         }
     }
+
+    function getSubQuestionAnswer($storyId, $qid, $answerid) {
+        $subs = $this->question_model->getSubQuestions($storyId, $qid);
+        if($subs != null && count($subs) > 0) {
+            for ($i = 0; $i < count($subs); $i++) {
+                $answer = $this->answer_model->getAnswer($storyId, $qid, $answerid);
+                
+                $subs[$i]['answer'] = $answer;
+                $temp_sub = $this->getSubQuestionAnswer($storyId, $subs[$i]['id'], $answerid);
+                if($temp_sub != null && count($temp_sub) > 0) {
+                    $subs[$i]['subs'] = $temp_sub;
+                } 
+            }
+
+            return $subs;
+        } else {
+            return null;
+        }
+    }
+
+    function showStory($answerid) {
+        $stories = $this->story_model->getAll();
+
+        for($i = 0; $i < count($stories); $i++) {
+            $questions = $this->question_model->getByStory($stories[$i]['id']);
+            
+            if($questions != null && count($questions) > 0) {
+                for($j = 0; $j < count($questions); $j++) {
+                    $answer = $this->answer_model->getAnswer($stories[$i]['id'], $questions[$j]['id'], $answerid);
+                    $questions[$j]['answer'] = $answer;
+                    $temp_sub = $this->getSubQuestionAnswer($stories[$i]['id'], $questions[$j]['id'], $answerid);
+                    if($temp_sub != null && count($temp_sub) > 0) {
+                        $questions[$j]['subs'] = $temp_sub;
+                    } 
+                }
+            }
+            $stories[$i]['questions'] = $questions;
+        }
+
+        $data['stories'] = $stories;
+        $data['answers'] = $this->answer_model->getAllAnswerById($answerid);
+        // var_dump($data);
+        $this->load->view("answer/showStory", $data);
+    }
 }
