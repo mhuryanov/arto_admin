@@ -122,4 +122,30 @@ class Answer extends BaseController
         // var_dump($data);
         $this->load->view("answer/showStory", $data);
     }
+
+    function getAnswers($answerid) {
+        $stories = $this->story_model->getAll();
+
+        for($i = 0; $i < count($stories); $i++) {
+            $questions = $this->question_model->getByStory($stories[$i]['id']);
+            
+            if($questions != null && count($questions) > 0) {
+                for($j = 0; $j < count($questions); $j++) {
+                    $answer = $this->answer_model->getAnswer($stories[$i]['id'], $questions[$j]['id'], $answerid);
+                    $questions[$j]['answer'] = $answer;
+                    $temp_sub = $this->getSubQuestionAnswer($stories[$i]['id'], $questions[$j]['id'], $answerid);
+                    if($temp_sub != null && count($temp_sub) > 0) {
+                        $questions[$j]['subs'] = $temp_sub;
+                    } 
+                }
+            }
+            $stories[$i]['questions'] = $questions;
+        }
+
+        $data['stories'] = $stories;
+        $data['answers'] = $this->answer_model->getAllAnswerById($answerid);
+        $data['answerid'] = $answerid;
+        // var_dump($data);
+        $this->load->view("answer/questionAndAnswer", $data);
+    }
 }

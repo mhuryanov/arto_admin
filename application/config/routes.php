@@ -103,6 +103,7 @@ $route['editQuestion/(:num)/(:num)'] = "question/editQuestion/$1/$2";
 $route['deleteQuestion/(:num)/(:num)'] = "question/delete/$1/$2";
 
 $route['postAnswers'] = "answer";
+$route['postAnswers/(:any)'] = "answer/getAnswers/$1";
 $route['postAnswer'] = "answer/post";
 $route['postInd'] = "answer/postInd";
 $route['showStory/(:any)'] = "answer/showStory/$1";
