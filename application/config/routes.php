@@ -73,6 +73,9 @@ $route['profile/(:any)'] = "user/profile/$1";
 $route['profileUpdate'] = "user/profileUpdate";
 $route['profileUpdate/(:any)'] = "user/profileUpdate/$1";
 
+$route['register'] = 'login/register';
+$route['registerMe'] = 'login/registerMe';
+
 $route['loadChangePass'] = "user/loadChangePass";
 $route['changePassword'] = "user/changePassword";
 $route['changePassword/(:any)'] = "user/changePassword/$1";
@@ -107,6 +110,7 @@ $route['postAnswers/(:any)'] = "answer/getAnswers/$1";
 $route['postAnswer'] = "answer/post";
 $route['postInd'] = "answer/postInd";
 $route['showStory/(:any)'] = "answer/showStory/$1";
+$route['myStory'] = "answer/myStory";
 
 //ajax
 $route['addq_b'] = "question/addq_b";

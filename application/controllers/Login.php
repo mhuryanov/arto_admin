@@ -16,6 +16,7 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->model('login_model');
+        $this->load->model('user_model');
     }
 
     /**
@@ -237,6 +238,57 @@ class Login extends CI_Controller
             if($is_correct == 1)
             {                
                 $this->login_model->createPasswordUser($email, $password);
+                
+                $status = 'success';
+                $message = 'Password reset successfully';
+            }
+            else
+            {
+                $status = 'error';
+                $message = 'Password reset failed';
+            }
+            
+            setFlashData($status, $message);
+
+            redirect("/login");
+        }
+    }
+
+    function register() {
+        $isLoggedIn = $this->session->userdata('isLoggedIn');
+        
+        if(!isset($isLoggedIn) || $isLoggedIn != TRUE)
+        {
+            $this->load->view('register');
+        }
+        else
+        {
+            redirect('/dashboard');
+        }
+    }
+
+    function registerMe() {
+        $this->load->library('form_validation');
+        
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[128]|trim');
+        $this->form_validation->set_rules('password', 'Password', 'required|max_length[32]');
+        $this->form_validation->set_rules('c_password', 'Confirm Password', 'required|matches[password]');
+        
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->register();
+        }
+        else
+        {
+            $email = strtolower($this->security->xss_clean($this->input->post('email')));
+            $password = $this->input->post('password');
+            
+            $is_exist = $this->login_model->checkEmailExist($email);
+            if($is_exist == false)
+            {                
+                $userInfo = array('email'=>$email, 'password'=>getHashedPassword($password), 'roleId'=>3, 'name'=> "",
+                                    'mobile'=>"", 'createdBy'=>1, 'createdDtm'=>date('Y-m-d H:i:s'));
+                $this->user_model->addNewUser($userInfo);
                 
                 $status = 'success';
                 $message = 'Password reset successfully';

@@ -23,7 +23,7 @@
         <a href="#"><b>Moneo</b><br>Admin System</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Sign In</p>
+        <p class="login-box-msg">Register</p>
         <?php $this->load->helper('form'); ?>
         <div class="row">
             <div class="col-md-12">
@@ -50,7 +50,7 @@
                 <?php echo $success; ?>                    
             </div>
         <?php } ?>
-        <form action="<?php echo base_url(); ?>loginMe" method="post">
+        <form action="<?php echo base_url(); ?>registerMe" method="post">
           <div class="form-group has-feedback">
             <input type="email" class="form-control" placeholder="Email" name="email" required />
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -59,6 +59,12 @@
             <input type="password" class="form-control" placeholder="Password" name="password" required />
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
+
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" placeholder="Confirm Password" name="c_password" required />
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+
           <div class="row">
             <!-- <div class="col-xs-8">    
               <div class="checkbox icheck">
@@ -68,8 +74,8 @@
               </div>                        
             </div>/.col -->
             <div class="col-xs-12">
-              <input type="submit" class="btn btn-primary btn-flat" value="Sign In" />
-              <a href="<?=base_url("register")?>" class="btn btn-primary btn-flat">Register</a>
+                <input type="submit" class="btn btn-primary btn-flat" value="Register" />
+                <a href="<?=base_url()?>" class="btn btn-primary btn-flat">Sign In</a>
             </div><!-- /.col -->
           </div>
         </form>
